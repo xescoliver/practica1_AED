@@ -52,23 +52,13 @@ editor_options:
     wrap: 72
 ---
 
-# Práctica 1
+# Introducción
 
 En este documento se va a realizar la práctica 1 de Análisis
 exploratorio de datos.
 
-## Definición de las rutas de los datos
 
-DFP1_11122015 124700.csv ———————————————————————\> Deposito.RData
-“Transactions from a Bakery” (Kaggle) ——————————\> BreadBasket.RData
-(SPSS) PsychBike.sav ———————————————————————————\> PsychBike.RData
-FileCodificado.json ————————————————————————————\> FileCodificado.RData
-iris_json.json -----————————————————————————————\> iris.RData ERCA.xls
-———————————————————————————————————————\> ERCA.RData subjectInfo.xlsx
-———————————————————————————————\> Pacientes.RData Robot.hdf5
-—————————————————————————————————————\> Robot.RData
-
-##  2 fichero DFP1_11122015 124700.csv
+##  Primer apartado: fichero DFP1_11122015 124700.csv
 
 Empezamos cargando los datos de este primer csv. Los cargamos con la
 función import Dataset de Rstudio. Cuando usamos la función base, nos
@@ -78,7 +68,7 @@ por defecto usa como separador las comas. Además cambia el tipo de datos
 que usan. AL usar la versión base tenemos la hora en versión chr, que es
 un string. En cambio en readr usa un formato de horas llamado hms.
 
-### 2.1 Importación del fichero
+## Importación del fichero
 
 ```{r}
 #versión base
@@ -100,7 +90,7 @@ save(Deposito, file = "./data/results/Deposito.RData")
 
 ```
 
-### 2.2 Inspección de los datos
+## Inspección de los datos
 
 LA función string nos devuelve un resumen escrito de las variables y los
 tipos en el dataframe.
@@ -135,9 +125,9 @@ variable, como los valores mínimo y máximo o los cuartiles.
 summary(Deposito)
 ```
 
-# 3 Fichero *Transactions from a Bakery* (Kaggle)
+# Fichero *Transactions from a Bakery* (Kaggle)
 
-## 3.1 Importación del fichero
+## Importación del fichero
 
 ```{r}
 
@@ -150,7 +140,7 @@ View(bakery_sales_revised)
 # Guardar el objeto bakery
 save(bakery_sales_revised, file = "./data/results/BreadBasket.RData")
 ```
-## 3.2
+## Inspección de los datos
 ```{r}
 str(bakery_sales_revised)
 
@@ -161,9 +151,9 @@ summary(bakery_sales_revised)
 ```
 
 
-# 4 Fichero SPSS PsychBike.sav
+# Fichero SPSS PsychBike.sav
 
-## 4.1 Importación del fichero
+## Importación del fichero
 
 ```{r}
 
@@ -173,7 +163,7 @@ psych_bike <- read_sav("./data/PsychBike.sav")
 # Guardar el objeto 
 save(psych_bike, file = "./data/results/PsychBike.RData")
 ```
-## 4.2 Inspección de los datos
+## Inspección de los datos
 ```{r}
 str(psych_bike)
 
@@ -182,8 +172,8 @@ tail(psych_bike)
 summary(psych_bike)
 ```
 
-#5 Fichero data iris.zip
-
+# Fichero data iris.zip
+Usamos esta función para descargar el fichero directamente desde la web. 
 ```{r}
 # Descargar el archivo ZIP
 download.file(
@@ -194,9 +184,9 @@ download.file(
 
 
 ```
-## 5.1 Descomprimir el fichero
+## Descomprimir el fichero
 
-
+Esta función nos descomprime el fichero el exdir.
 ```{r}
 unzip("./data/iris.zip", exdir = "./data")
 
@@ -204,9 +194,9 @@ unzip("./data/iris.zip", exdir = "./data")
 ```
 
 
-# 6 Fichero data iris.data
+#  Fichero data iris.data
 
-## 6.1 Importación del fichero
+## Importación del fichero
 
 ```{r}
 
@@ -226,7 +216,7 @@ save(iris, file = "./data/results/iris.RData")
 
 ```
 
-## 6.2 Inspección de los datos
+## Inspección de los datos
 
 ```{r}
 str(iris)
@@ -238,16 +228,15 @@ summary(iris)
 
 
 
-# 7 Fichero JSON FileCodificado.json
+# Fichero JSON FileCodificado.json
 
-## 7.2 Importar el fichero FileCodificado.json
+## Importar el fichero FileCodificado.json
 
 Es importante usar el simplifyvector, ya que si no lo usas te devuelve una cadena de caracteres muy larga, en vez de un dataframe.
 ```{r}
 library(jsonlite)
 
 file_codificado <- read_json("./data/FileCodificado.json", simplifyVector = T)
-file_codificado
 
 ```
 ```{r}
@@ -260,16 +249,16 @@ summary(file_codificado)
 
 Podemos observar con el str que tenemos 22 variables con un total de 83 observaciones. COn el summary vemos las distntas medidas de cada variable. COmo muchas son characters, son 0. Con el head y tail nos hacemos una idea de los valores de cada variable y algunos ejemplos. COmo por ejemplo la edad del conductor.
 
-# 8 Fichero JSON iris_json.json
+# Fichero JSON iris_json.json
 
-## 8.1 Importar el fichero iris_json.json
+## Importar el fichero iris_json.json
 
 Importamos los valores con la funcion read_json y usamos otra vez el , simplifyVector = T para que se ponga correctamente en formato tabla.
 ```{r}
 
 
 iris_json <- read_json("./data/iris_json.json", simplifyVector = T)
-iris_json
+
 ```
 Ahora paaso a usar fromJSON. Visualizando los dos dataframes no veo inguna diferencia. Parece que almacena la misma información. La unica diferencia parece ser que si no usas el simplify vector, el read_json te devuelve un formato de texto de R, en vez de un dataframe.
 
@@ -277,7 +266,7 @@ Ahora paaso a usar fromJSON. Visualizando los dos dataframes no veo inguna difer
 
 
 iris_from_json <- fromJSON("./data/iris_json.json")
-iris_from_json
+
 ```
 ```{r}
 str(iris_json)
