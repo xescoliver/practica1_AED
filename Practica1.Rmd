@@ -240,9 +240,27 @@ summary(iris)
 
 # 7 Fichero JSON FileCodificado.json
 
-## 7.1 Importación del fichero
+## 7.2 Importar el fichero FileCodificado.json
 
+Es importante usar el simplifyvector, ya que si no lo usas te devuelve una cadena de caracteres muy larga, en vez de un dataframe.
 ```{r}
 library(jsonlite)
+
+file_codificado <- read_json("./data/FileCodificado.json", simplifyVector = T)
+file_codificado
+
 ```
+```{r}
+str(file_codificado)
+
+head(file_codificado)
+tail(file_codificado)
+summary(file_codificado)
+```
+
+Podemos observar con el str que tenemos 22 variables con un total de 83 observaciones. COn el summary vemos las distntas medidas de cada variable. COmo muchas son characters, son 0. Con el head y tail nos hacemos una idea de los valores de cada variable y algunos ejemplos. COmo por ejemplo la edad del conductor.
+
+# 8 Fichero JSON iris_json.json
+
+## 8.1 Importar el fichero iris_json.json
 
