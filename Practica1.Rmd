@@ -140,6 +140,13 @@ summary(Deposito)
 ## 3.1 Importación del fichero
 
 ```{r}
-download.file(
-browseURL("https://www.kaggle.com/datasets/akashdeepkuila/bakery?resource=download&select=bakery_sales_revised.csv")
+
+
+library(readr)
+bakery_sales_revised <- read_csv("data/bakery_sales_revised.csv")
+View(bakery_sales_revised)
+
+
+# Guardar el objeto bakery
+save(bakery_sales_revised, file = "./data/results/BreadBasket.RData")
 ```
