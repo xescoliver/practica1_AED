@@ -182,3 +182,29 @@ tail(psych_bike)
 summary(psych_bike)
 ```
 
+#5 Fichero data iris.zip
+
+```{r}
+# Descargar el archivo ZIP
+download.file(
+  url = "https://archive.ics.uci.edu/static/public/53/iris.zip",
+  destfile = "./data/iris.zip",
+  mode = "wb"
+)
+
+
+```
+## 5.1 Descomprimir el fichero
+
+
+```{r}
+unzip("./data/iris.zip")
+
+
+```
+
+
+# 6 Fichero data iris.data
+
+## 6.1 Importación del fichero
+
