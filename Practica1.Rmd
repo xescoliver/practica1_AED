@@ -150,3 +150,35 @@ View(bakery_sales_revised)
 # Guardar el objeto bakery
 save(bakery_sales_revised, file = "./data/results/BreadBasket.RData")
 ```
+## 3.2
+```{r}
+str(bakery_sales_revised)
+
+head(bakery_sales_revised)
+tail(bakery_sales_revised)
+
+summary(bakery_sales_revised)
+```
+
+
+# 4 Fichero SPSS PsychBike.sav
+
+## 4.1 Importación del fichero
+
+```{r}
+
+library(haven)
+psych_bike <- read_sav("./data/PsychBike.sav")
+
+# Guardar el objeto 
+save(psych_bike, file = "./data/results/PsychBike.RData")
+```
+## 4.2 Inspección de los datos
+```{r}
+str(psych_bike)
+
+head(psych_bike)
+tail(psych_bike)
+summary(psych_bike)
+```
+
