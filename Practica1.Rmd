@@ -264,3 +264,41 @@ Podemos observar con el str que tenemos 22 variables con un total de 83 observac
 
 ## 8.1 Importar el fichero iris_json.json
 
+Importamos los valores con la funcion read_json y usamos otra vez el , simplifyVector = T para que se ponga correctamente en formato tabla.
+```{r}
+
+
+iris_json <- read_json("./data/iris_json.json", simplifyVector = T)
+iris_json
+```
+Ahora paaso a usar fromJSON. Visualizando los dos dataframes no veo inguna diferencia. Parece que almacena la misma información. La unica diferencia parece ser que si no usas el simplify vector, el read_json te devuelve un formato de texto de R, en vez de un dataframe.
+
+```{r}
+
+
+iris_from_json <- fromJSON("./data/iris_json.json")
+iris_from_json
+```
+```{r}
+str(iris_json)
+
+head(iris_json)
+tail(iris_json)
+summary(iris_json)
+```
+Podemos observar que tenemos 5 variables y 150 observaciones. Vemos como tenemos medidadas de tamaño de los petalos y sepalos, y además el tipo de especie al que corresponde cada muestra. 
+
+## 8.3 exportar datos en formato JSON
+
+Podemos observar que si no usamos el pretty, nos crea un json en una línea. Esto es poco lejible para un humano pero alomejor no nos importa si es solo para usar con scripts.
+```{r}
+library(jsonlite)
+
+
+load("./data/results/iris.RData")
+
+write_json(iris, "./data/iris.json", pretty = TRUE)
+
+write_json(iris, "./data/iris_feo.json", pretty = F)
+```
+
