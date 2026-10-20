@@ -198,7 +198,7 @@ download.file(
 
 
 ```{r}
-unzip("./data/iris.zip")
+unzip("./data/iris.zip", exdir = "./data")
 
 
 ```
@@ -207,4 +207,42 @@ unzip("./data/iris.zip")
 # 6 Fichero data iris.data
 
 ## 6.1 Importación del fichero
+
+```{r}
+
+#le añado directament los nombres
+iris <- read.table("./data/iris.data",
+                   sep = ",",
+                   header = FALSE,
+                   col.names = c("sepal length",
+                                 "sepal width",
+                                 "petal length",
+                                 "petal width",
+                                 "class"),
+                   check.names = FALSE)
+
+
+save(iris, file = "./data/results/iris.RData")
+
+```
+
+## 6.2 Inspección de los datos
+
+```{r}
+str(iris)
+
+head(iris)
+tail(iris)
+summary(iris)
+```
+
+
+
+# 7 Fichero JSON FileCodificado.json
+
+## 7.1 Importación del fichero
+
+```{r}
+library(jsonlite)
+```
 
