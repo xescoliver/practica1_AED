@@ -1,0 +1,145 @@
+---
+title: "Práctica 1 AED"
+author: "Francesc Oliver Catany"
+date: "`r Sys.Date()`"
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+  html_document:
+    echo: true
+    number_sections: true
+    theme: lumen
+    toc: true
+  html_notebook:
+    echo: true
+    number_sections: true
+    toc: true
+  bookdown::pdf_document2:
+    toc: true
+    toc_depth: 3
+    number_sections: true
+    figure_caption: "Figura" # Referencias en castellano
+    table_caption: "Tabla"
+  bookdown::html_document2:
+    echo: true
+    number_sections: true
+    theme: spacelab
+    toc: true
+    figure_caption: "Figura"
+    table_caption: "Tabla"
+always_allow_html: true
+lang: es-ES
+subtitle: "Introducción a la Ciencia de Datos. Máster en Ciencia de Datos- UV"
+language:
+  label:
+    fig: 'Figura '
+    tab: 'Tabla '
+    eq: 'Ecuación '
+    thm: 'Teorema '
+    lem: 'Lema '
+    def: 'Definición '
+    cor: 'Corolario '
+    prp: 'Proposición '
+    exm: 'Ejemplo '
+    exr: 'Ejercicio '
+    proof: 'Demostración. '
+    remark: 'Nota: '
+    solution: 'Solución. '
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# Práctica 1
+
+En este documento se va a realizar la práctica 1 de Análisis
+exploratorio de datos.
+
+## Definición de las rutas de los datos
+
+DFP1_11122015 124700.csv ———————————————————————\> Deposito.RData
+“Transactions from a Bakery” (Kaggle) ——————————\> BreadBasket.RData
+(SPSS) PsychBike.sav ———————————————————————————\> PsychBike.RData
+FileCodificado.json ————————————————————————————\> FileCodificado.RData
+iris_json.json -----————————————————————————————\> iris.RData ERCA.xls
+———————————————————————————————————————\> ERCA.RData subjectInfo.xlsx
+———————————————————————————————\> Pacientes.RData Robot.hdf5
+—————————————————————————————————————\> Robot.RData
+
+##  2 fichero DFP1_11122015 124700.csv
+
+Empezamos cargando los datos de este primer csv. Los cargamos con la
+función import Dataset de Rstudio. Cuando usamos la función base, nos
+detecta solo que esta separado por tabuladores y no coloca correctamente
+las columnas. En cambio usando readr tenemos que ponerlo a mano, porque
+por defecto usa como separador las comas. Además cambia el tipo de datos
+que usan. AL usar la versión base tenemos la hora en versión chr, que es
+un string. En cambio en readr usa un formato de horas llamado hms.
+
+### 2.1 Importación del fichero
+
+```{r}
+#versión base
+Deposito <-read.csv("./data/DFP1_11122015 124700.csv",  stringsAsFactors = F, sep="\t")
+
+#Lo transformo de tipo chr a tipo date, así lo almaceno de manera correcta
+Deposito$FECHA <- as.POSIXlt(Deposito$FECHA, format="%d/%m/%Y")
+
+library(hms)
+
+Deposito$HORA <- as.hms(Deposito$HORA)
+
+# Creo la carpeta dentro de data
+dir.create("./data/results", showWarnings = FALSE)
+
+# Guardar el objeto Deposito
+save(Deposito, file = "./data/results/Deposito.RData")
+
+
+```
+
+### 2.2 Inspección de los datos
+
+LA función string nos devuelve un resumen escrito de las variables y los
+tipos en el dataframe.
+
+```{r}
+
+str(Deposito)
+
+```
+
+LA función head nos devuelve una muestra de los primeros elementos del
+dataframe.
+
+```{r}
+head(Deposito) 
+
+
+```
+
+La función head nos devuelve una muestra de los ultimos elementos del
+dataframe.
+
+```{r}
+tail(Deposito) 
+
+```
+
+La función summary nos muestra algunas medidas de resumen de cada
+variable, como los valores mínimo y máximo o los cuartiles.
+
+```{r}
+summary(Deposito)
+```
+
+# 3 Fichero *Transactions from a Bakery* (Kaggle)
+
+## 3.1 Importación del fichero
+
+```{r}
+download.file(
+browseURL("https://www.kaggle.com/datasets/akashdeepkuila/bakery?resource=download&select=bakery_sales_revised.csv")
+```
